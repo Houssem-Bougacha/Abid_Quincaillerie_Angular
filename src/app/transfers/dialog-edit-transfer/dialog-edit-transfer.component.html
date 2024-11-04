@@ -1,0 +1,122 @@
+<h2 mat-dialog-title>Edit Transaction</h2>
+
+<mat-dialog-content>
+
+    <div id="inputs">
+
+        @if (
+        fieldsToEdit === 'title' ||
+        fieldsToEdit === 'all'
+        ) {
+
+        <mat-form-field appearance="outline" [color]="'accent'">
+            <mat-label>Title</mat-label>
+            <input cdkFocusInitial matInput [(ngModel)]="transfer.title" type="text" required [disabled]="loading">
+        </mat-form-field>
+        }
+
+        @if (
+        fieldsToEdit === 'description' ||
+        fieldsToEdit === 'all'
+        ) {
+
+        <mat-form-field appearance="outline" [color]="'accent'">
+            <mat-label>Description</mat-label>
+            <textarea [(ngModel)]="transfer.description" matInput [disabled]="loading"></textarea>
+        </mat-form-field>
+        }
+
+        
+        @if (
+        fieldsToEdit === 'type+amount+payer+recipient' ||
+        fieldsToEdit === 'all'
+        ) {
+        <div class="inputs-row">
+            <mat-form-field appearance="outline" [color]="'accent'">
+                <mat-label>Type</mat-label>
+                <mat-select required [disabled]="loading" [(value)]="transfer.type" (selectionChange)="setPayerRecipient($event.value)">
+                    <mat-option value="Sale">{{'Sale'}}</mat-option>
+                    <mat-option value="Purchase">{{'Purchase'}}</mat-option>
+                    <mat-option value="Refund">{{'Refund'}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline" [color]="'accent'">
+                <mat-label>Amount</mat-label>
+                <input matInput [(ngModel)]="transfer.amount" type="number" required [disabled]="loading">
+            </mat-form-field>
+        </div>
+        }
+
+        @if (
+        fieldsToEdit === 'type+amount+payer+recipient' ||
+        fieldsToEdit === 'all'
+        ) {
+        <div class="inputs-row">
+
+            <mat-form-field appearance="outline" [color]="'accent'">
+                <mat-label>Payer</mat-label>
+                <input type="text" matInput [formControl]="payerPicker" [matAutocomplete]="auto1" required>
+
+                <mat-autocomplete autoActiveFirstOption #auto1="matAutocomplete">
+
+                    @for (payer of payerPickerFilteredOptions | async; track payer; let index = $index ) {
+                    <mat-option [value]="payer">{{payer}}</mat-option>
+                    }
+                </mat-autocomplete>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" [color]="'accent'">
+                <mat-label>Recipient</mat-label>
+                <input type="text" matInput [formControl]="recipientPicker" [matAutocomplete]="auto2" required>
+
+                <mat-autocomplete autoActiveFirstOption #auto2="matAutocomplete">
+
+                    @for (recipient of recipientPickerFilteredOptions | async; track recipient; let index = $index ) {
+                    <mat-option [value]="recipient">{{recipient}}</mat-option>
+                    }
+                </mat-autocomplete>
+            </mat-form-field>
+        </div>
+        }
+
+        @if (
+        fieldsToEdit === 'closedBy+date' ||
+        fieldsToEdit === 'all'
+        ) {
+        <div class="inputs-row">
+
+            <mat-form-field appearance="outline" [color]="'accent'">
+                <mat-label>Date</mat-label>
+                <input matInput [matDatepicker]="picker" [(ngModel)]="date" required [disabled]="loading"
+                    [max]="dateService.getToday()">
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline" [color]="'accent'">
+                <mat-label>Closed by</mat-label>
+                <input type="text" matInput [formControl]="employeePicker" [matAutocomplete]="auto3" required>
+
+                <mat-autocomplete autoActiveFirstOption #auto3="matAutocomplete">
+
+                    @for (employee of employeePickerFilteredOptions | async; track employee; let index = $index ) {
+                    <mat-option [value]="employee">{{employee}}</mat-option>
+                    }
+                </mat-autocomplete>
+            </mat-form-field>
+        </div>
+        }
+
+    </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-button (click)="onNoClick()" [disabled]="loading">Cancel</button>
+    <button mat-button (click)="saveEdits()" [disabled]="loading">Save</button>
+</mat-dialog-actions>
+
+<mat-progress-bar *ngIf="loading" id="progess-bar" mode="indeterminate"></mat-progress-bar>

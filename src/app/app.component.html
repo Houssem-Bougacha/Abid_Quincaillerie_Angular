@@ -1,0 +1,49 @@
+<mat-sidenav-container>
+  <mat-sidenav #sidenav mode="side" [opened]="true">
+    <div id="sidenav-container">
+      <div id="logo-container" routerLink="dashboard">
+        <span>Abid Quincaillerie</span>
+      </div>
+      <div id="navbar">
+        <div>
+          <a mat-fab extended color="primary" routerLink="dashboard" routerLinkActive="router-link-active">
+            <mat-icon>assignment</mat-icon>
+            Dashboard
+          </a>
+          <a mat-fab extended color="primary" routerLink="contacts" routerLinkActive="router-link-active">
+            <mat-icon>person</mat-icon>
+            Contacts
+          </a>
+          <a mat-fab extended color="primary" routerLink="transfers" routerLinkActive="router-link-active">
+            <mat-icon>sync_alt</mat-icon>
+            Transactions
+          </a>
+          <a mat-fab extended color="primary" routerLink="employees" routerLinkActive="router-link-active">
+            <mat-icon>badge</mat-icon>
+            Employees
+          </a>
+        </div>
+      </div>
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar id="toolbar" color="primary">
+      <button mat-icon-button class="example-icon" (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span [innerHtml]="title">Title</span>
+      <span class="spacer"></span> <!-- Ajouter un espaceur pour pousser le bouton de login vers la droite -->
+      <button mat-button (click)="login()">
+        <mat-icon>login</mat-icon>
+        Login
+      </button>
+    </mat-toolbar>
+
+    <div id="router-container">
+      <!-- Ajoutez votre image ici -->
+      <img src="assets/comaf3.jpg" alt="Description de l'image" class="main-image">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

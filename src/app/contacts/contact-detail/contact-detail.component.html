@@ -1,0 +1,224 @@
+<mat-card id="top-card" color="primary">
+
+    @if (contact.imageUrl) {
+
+    <img id="profile-img" [src]="'./assets/img/profiles/' + contact.imageUrl" alt="profile image">
+
+    } @else {
+
+    <img id="profile-img" src="./assets/img/profile_placeholder.svg" alt="placeholder for profile">
+    }
+
+
+    <mat-card-header>
+
+        <mat-card-title>
+
+            @if (contact.id === 'WjVzeiDUXvRcx8MVZBbq') {
+
+            {{ contact.firstName + ' ' + contact.lastName + ' (You)' }}
+
+            } @else {
+
+            {{ contact.firstName + ' ' + contact.lastName}}
+            }
+
+        </mat-card-title>
+
+        <mat-card-subtitle>
+
+            @if (contact.email) {
+
+            <a mat-raised-button href="mailto:{{ contact.email }}">
+                <mat-icon>mail</mat-icon>
+                {{ contact.email }}
+            </a>
+            } @else {
+
+            <button mat-raised-button (click)="openEditContactDialog('name+email+phone')">
+                <mat-icon>mail</mat-icon>
+                Add e-mail
+            </button>
+            }
+
+            @if (contact.phone) {
+
+            <a mat-raised-button href="tel:{{ contact.phone }}">
+                <mat-icon>call</mat-icon>
+                {{ contact.phone }}
+            </a>
+            } @else {
+
+            <button mat-raised-button (click)="openEditContactDialog('name+email+phone')">
+                <mat-icon>call</mat-icon>
+                Add phone
+            </button>
+            }
+
+        </mat-card-subtitle>
+    </mat-card-header>
+
+    @if (contact.id !== 'WjVzeiDUXvRcx8MVZBbq') {
+
+    <button class="card-options" mat-icon-button [matMenuTriggerFor]="menu1">
+        <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu1="matMenu">
+        <button mat-menu-item (click)="openEditContactDialog('name+email+phone')">
+            <mat-icon>edit</mat-icon>
+            <span>Edit</span>
+        </button>
+    </mat-menu>
+    }
+
+</mat-card>
+
+<mat-card id="middle-card">
+
+    <mat-card-title>
+        About
+    </mat-card-title>
+
+    <section>
+        <mat-card-subtitle>
+            Address
+        </mat-card-subtitle>
+        <div class="double-columns">
+
+            @if ((contact.street || contact.houseNumber) && (contact.zipCode || contact.city)) {
+
+            <span>{{ contact.street + ' ' + contact.houseNumber + ', ' }}</span>
+
+            } @else {
+
+            <span>{{ contact.street + ' ' + contact.houseNumber }}</span>
+            }
+
+            @if (contact.zipCode) {
+
+            <span>{{ contact.zipCode + ' ' + contact.city }}</span>
+
+            } @else {
+
+            <span>{{ contact.city }}</span>
+            }
+
+        </div>
+
+        @if (contact.id !== 'WjVzeiDUXvRcx8MVZBbq') {
+
+        <button class="card-options" mat-icon-button [matMenuTriggerFor]="menu2">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu2="matMenu">
+            <button mat-menu-item (click)="openEditContactDialog('address')">
+                <mat-icon>edit</mat-icon>
+                <span>Edit</span>
+            </button>
+        </mat-menu>
+        }
+
+    </section>
+
+    <mat-divider></mat-divider>
+
+    <section>
+        <mat-card-subtitle>
+            Date of Birth
+        </mat-card-subtitle>
+        <div>
+            {{ contact.birthDate ?
+            (dateService.returnTimestampAsDateString(contact.birthDate) + ' (Age: ' +
+            dateService.returnAge(contact.birthDate)) + ')' : '' }}
+
+        </div>
+
+        @if (contact.id !== 'WjVzeiDUXvRcx8MVZBbq') {
+
+        <button class="card-options" mat-icon-button [matMenuTriggerFor]="menu3">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu3="matMenu">
+            <button mat-menu-item (click)="openEditContactDialog('birthDate')">
+                <mat-icon>edit</mat-icon>
+                <span>Edit</span>
+            </button>
+        </mat-menu>
+        }
+    </section>
+
+</mat-card>
+
+
+<mat-card id="bottom-card">
+
+    <mat-card-title>
+        Transactions
+
+        <div id="accordion-buttons">
+            <button mat-raised-button (click)="accordion.openAll()">Expand All</button>
+            <button mat-raised-button (click)="accordion.closeAll()">Collapse All</button>
+        </div>
+
+    </mat-card-title>
+
+    <mat-accordion class="example-headers-align" multi>
+
+        @for (transfer of transfers; track $index) {
+
+        <mat-expansion-panel>
+
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    {{transfer.title}}
+                </mat-panel-title>
+                <mat-panel-description>
+                    <div>
+                        <mat-icon>euro</mat-icon>
+                        {{transfer.amount}}
+                    </div>
+
+                    <div>
+                        <mat-icon>calendar_month</mat-icon>
+                        {{ dateService.returnTimestampAsDateString(transfer.date) }}
+                    </div>
+
+                </mat-panel-description>
+                <mat-divider></mat-divider>
+            </mat-expansion-panel-header>
+
+            <div class="expanded-container">
+                {{ commonService.returnFormattedName(transfer.payer) }}
+                <mat-icon>arrow_forward</mat-icon>
+                {{ commonService.returnFormattedName(transfer.recipient) }}
+
+            </div>
+
+            <a class="button-open-transaction-details" mat-icon-button matTooltip="Transaction details"
+                [matTooltipPosition]="'left'" [routerLink]="['/transfers', transfer.id]" target="_blank">
+                <mat-icon>open_in_new</mat-icon>
+            </a>
+
+
+        </mat-expansion-panel>
+
+        <mat-divider></mat-divider>
+
+        }
+    </mat-accordion>
+</mat-card>
+
+@if (contact.id !== 'WjVzeiDUXvRcx8MVZBbq') {
+
+<div id="buttons">
+    <button id="button-edit" mat-fab color="primary" matTooltip="Edit contact" [matTooltipPosition]="'left'"
+        (click)="openEditContactDialog('all')">
+        <mat-icon>edit</mat-icon>
+    </button>
+
+    <button id="button-delete" mat-fab color="primary" matTooltip="Delete contact" [matTooltipPosition]="'left'"
+        (click)="openDeleteContactDialog()">
+        <mat-icon>delete</mat-icon>
+    </button>
+</div>
+}

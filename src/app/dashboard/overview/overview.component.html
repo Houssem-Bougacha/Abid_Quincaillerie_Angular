@@ -1,0 +1,40 @@
+<div id="single-row-container" class="stats-card" routerLink="./../contacts">
+
+    <mat-card-title>
+        Contacts
+    </mat-card-title>
+    <div class="number">
+
+        {{commonService.returnCollectionByName('contacts').length}}
+    </div>
+</div>
+
+<div id="double-row-container">
+
+    <div class="stats-card" routerLink="./../transfers">
+        
+        <mat-card-title>
+            Transactions
+        </mat-card-title>
+
+        <div class="number">
+
+            {{commonService.returnCollectionByName('transfers').length}}
+        </div>
+
+    </div>
+
+
+    <div class="stats-card" routerLink="./../employees">
+
+        <mat-card-title>
+            Employees
+        </mat-card-title>
+        <div class="number">
+
+            {{commonService.returnCollectionByName('employees').length}}
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,17 @@
+<mat-card-content>
+    <mat-card-title>
+        Most Sales
+    </mat-card-title>
+
+    <section>
+
+        <span id="name" [innerHTML]="topEmployee.firstName + ' ' + topEmployee.lastName"></span>
+
+        @if (revenue) {
+
+        <span>{{'Amount: ' + revenue + 'Dt'}}</span>
+        }
+    </section>
+
+
+</mat-card-content>

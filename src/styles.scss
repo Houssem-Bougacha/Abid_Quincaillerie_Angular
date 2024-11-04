@@ -1,0 +1,87 @@
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+app-transfers-table,
+app-contacts-table,
+app-employees-table {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    mat-header-cell {
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+}
+
+app-contact-detail,
+app-transfer-detail,
+app-employee-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 800px;
+}
+
+app-dashboard {
+    height: calc(100vh - 88px);
+    display: grid;
+    grid-template-columns: repeat(4, calc((100% - 48px) / 4));
+    grid-template-rows: repeat(2, calc((100% - 16px) / 2));
+    gap: 16px;
+    max-width: 1600px;
+
+    @media (max-width: 1200px) {
+        height: unset;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+}
+
+app-imprint,
+app-data-protection {
+    display: block;
+    max-width: 800px;
+    padding: 8px;
+}
+
+#table-desktop {
+    margin-bottom: 83px;
+}
+
+
+/* ----------------------------------
+custom scrollbar
+---------------------------------- */
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #424242;
+    cursor: pointer;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 100vw;
+    background: #7B1FA2;
+    cursor: pointer;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #69F0AE;
+}
+
+::-webkit-scrollbar-thumb:active {
+    background: rgba(105, 240, 174, 0.4);
+}

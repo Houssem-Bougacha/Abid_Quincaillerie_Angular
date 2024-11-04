@@ -1,0 +1,144 @@
+#top-card {
+    height: 200px;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: flex-end;
+    padding: 24px;
+    background-color: #7B1FA2;
+    position: relative;
+
+    #profile-img {
+
+        height: 100%;
+        width: unset;
+        border-radius: 16px;
+    }
+
+    mat-card-title {
+        margin-bottom: 8px;
+        padding: 0;
+    }
+
+    mat-card-subtitle {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+    }
+}
+
+#middle-card {
+    display: flex;
+    flex-direction: column;
+
+    section {
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        position: relative;
+
+        .double-columns {
+            display: flex;
+            gap: 16px;
+        }
+
+        mat-card-subtitle {
+            padding-bottom: 4px;
+        }
+    }
+}
+
+#bottom-card {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    mat-card-title {
+        display: flex;
+        justify-content: space-between;
+
+        #accordion-buttons {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+    }
+
+    mat-expansion-panel {
+        box-shadow: none;
+        margin: 0;
+        position: relative;
+
+        .expanded-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        mat-panel-description {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+
+            div {
+                width: 100px;
+                display: flex;
+                align-items: center;
+                gap: 4px;
+            }
+        }
+
+        .button-open-transaction-details {
+            position: absolute;
+            bottom: 4px;
+            right: 4px;
+        }
+    }
+
+    mat-divider:last-of-type {
+        display: none;
+    }
+
+    @media (max-width: 800px) {
+        margin-bottom: 128px;
+    }
+}
+
+mat-card-title {
+    padding: 24px;
+    padding-bottom: 0;
+}
+
+.card-options {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+}
+
+#buttons {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 16px;
+
+    #button-edit {
+
+        @media (max-width: 800px) {
+            position: fixed;
+            right: 24px;
+            bottom: 96px;
+        }
+    }
+
+    #button-delete {
+
+        @media (max-width: 800px) {
+
+            position: fixed;
+            right: 24px;
+            bottom: 24px;
+        }
+    }
+}

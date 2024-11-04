@@ -1,0 +1,8 @@
+<mat-card-content>
+
+    <mat-card-title>Transaction Types</mat-card-title>
+    <div>
+        <canvas *ngIf="isBrowser" baseChart [data]="pieChartData" [type]="pieChartType" [options]="pieChartOptions">
+        </canvas>
+    </div>
+</mat-card-content>
